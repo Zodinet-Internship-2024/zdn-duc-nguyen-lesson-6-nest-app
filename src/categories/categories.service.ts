@@ -35,7 +35,11 @@ export class CategoriesService {
       };
       const newCategories: Category[] = [...categories, newCategory];
       await this.writeCategoryJson(this.dataCategoryFilePath, newCategories);
-      return newCategories;
+      return {
+        type: 'Success',
+        message: 'Added category successfully',
+        newCategory,
+      };
     } catch (err) {
       throw new HttpException(err, err.status);
     }
@@ -44,7 +48,11 @@ export class CategoriesService {
   async findAll() {
     try {
       const categories = await this.readCategoryJson(this.dataCategoryFilePath);
-      return categories;
+      return {
+        type: 'Success',
+        message: 'Added category successfully',
+        categories,
+      };
     } catch (err) {
       throw new HttpException(err, err.status);
     }
@@ -53,7 +61,7 @@ export class CategoriesService {
   async findOne(id: number) {
     try {
       if (!id) {
-        throw new HttpException('Id required', HttpStatus.NOT_FOUND);
+        throw new HttpException('Id  be required', HttpStatus.NOT_FOUND);
       }
       const categories = await this.readCategoryJson(this.dataCategoryFilePath);
       const category = await categories.find((category) => category.id === id);
@@ -61,7 +69,11 @@ export class CategoriesService {
       if (!category) {
         throw new HttpException('Product not found', HttpStatus.NOT_FOUND);
       }
-      return category;
+      return {
+        type: 'Success',
+        message: 'Found category',
+        category,
+      };
     } catch (err) {
       throw new HttpException(err.response, err.status);
     }
@@ -87,7 +99,11 @@ export class CategoriesService {
 
       await this.writeCategoryJson(this.dataCategoryFilePath, categories);
 
-      return updatedCategory;
+      return {
+        type: 'Success',
+        message: 'Updated successfully',
+        updatedCategory,
+      };
     } catch (err) {
       throw new HttpException(err.response, err.status);
     }
@@ -111,7 +127,11 @@ export class CategoriesService {
 
       await this.writeCategoryJson(this.dataCategoryFilePath, categories);
 
-      return categories;
+      return {
+        type: 'Success',
+        message: 'Remove successfully',
+        categories,
+      };
     } catch (err) {
       throw new HttpException(err.response, err.status);
     }

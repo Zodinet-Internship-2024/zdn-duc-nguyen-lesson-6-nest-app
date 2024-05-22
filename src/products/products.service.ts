@@ -35,7 +35,11 @@ export class ProductsService {
       };
       const newProducts: Product[] = [...products, newProduct];
       await this.writeProductJson(this.dataProductFilePath, newProducts);
-      return newProducts;
+      return {
+        type: 'Success',
+        message: 'Added product successfully',
+        newProducts,
+      };
     } catch (err) {
       throw new HttpException(err, err.status);
     }
@@ -44,7 +48,11 @@ export class ProductsService {
   async findAll() {
     try {
       const products = await this.readProductJson(this.dataProductFilePath);
-      return products;
+      return {
+        type: 'Success',
+        message: 'All products successfully',
+        products,
+      };
     } catch (err) {
       throw new HttpException(err, err.status);
     }
@@ -61,7 +69,12 @@ export class ProductsService {
       if (!product) {
         throw new HttpException('Product not found', HttpStatus.NOT_FOUND);
       }
-      return product;
+
+      return {
+        type: 'Success',
+        message: 'Found category',
+        product,
+      };
     } catch (err) {
       throw new HttpException(err.response, err.status);
     }
@@ -84,7 +97,11 @@ export class ProductsService {
 
       await this.writeProductJson(this.dataProductFilePath, products);
 
-      return updatedProduct;
+      return {
+        type: 'Success',
+        message: 'Updated successfully',
+        updatedProduct,
+      };
     } catch (err) {
       throw new HttpException(err.response, err.status);
     }
@@ -106,7 +123,11 @@ export class ProductsService {
 
       await this.writeProductJson(this.dataProductFilePath, products);
 
-      return products;
+      return {
+        type: 'Success',
+        message: 'Remove successfully',
+        products,
+      };
     } catch (err) {
       throw new HttpException(err.response, err.status);
     }
