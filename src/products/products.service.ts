@@ -1,15 +1,22 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import * as fs from 'fs';
 import * as path from 'path';
 import { Product } from './entities/product.entity';
+import { plainToInstance } from 'class-transformer';
+import { ProductResponseDto } from './dto/product-response.dto';
 @Injectable()
 export class ProductsService {
   private readonly dataProductFilePath = path.join(
     __dirname,
     '..',
-    '../src/db/products.json',
+    '../../src/db/products.json',
   );
 
   private generateId = (products: Product[]) => {
@@ -17,6 +24,7 @@ export class ProductsService {
     return id;
   };
   private readProductJson = (filePath: string) => {
+    console.log(filePath);
     const fileContent: Product[] = JSON.parse(
       fs.readFileSync(filePath, 'utf-8'),
     );
@@ -33,13 +41,14 @@ export class ProductsService {
         ...createProductDto,
         id: this.generateId(products),
       };
-      const newProducts: Product[] = [...products, newProduct];
-      await this.writeProductJson(this.dataProductFilePath, newProducts);
-      return {
-        type: 'Success',
-        message: 'Added product successfully',
-        newProducts,
-      };
+      products.push(newProduct);
+      this.writeProductJson(this.dataProductFilePath, products);
+      return plainToInstance(ProductResponseDto, newProduct);
+      // return {
+      //   type: 'Success',
+      //   message: 'suuccElymmm',
+      //   newProduct,
+      // };
     } catch (err) {
       throw new HttpException(err, err.status);
     }
@@ -47,12 +56,11 @@ export class ProductsService {
 
   async findAll() {
     try {
-      const products = await this.readProductJson(this.dataProductFilePath);
-      return {
-        type: 'Success',
-        message: 'All products successfully',
-        products,
-      };
+      const products = this.readProductJson(this.dataProductFilePath);
+
+      return products.map((product) =>
+        plainToInstance(ProductResponseDto, product),
+      );
     } catch (err) {
       throw new HttpException(err, err.status);
     }
@@ -63,18 +71,14 @@ export class ProductsService {
       if (!id) {
         throw new HttpException('Id require', HttpStatus.NOT_FOUND);
       }
-      const products = await this.readProductJson(this.dataProductFilePath);
+      const products = this.readProductJson(this.dataProductFilePath);
       const product = await products.find((product) => product.id === id);
       console.log(product);
       if (!product) {
-        throw new HttpException('Product not found', HttpStatus.NOT_FOUND);
+        throw new NotFoundException('Product not found');
       }
 
-      return {
-        type: 'Success',
-        message: 'Found category',
-        product,
-      };
+      return plainToInstance(ProductResponseDto, product);
     } catch (err) {
       throw new HttpException(err.response, err.status);
     }
@@ -96,12 +100,7 @@ export class ProductsService {
       products[productIndex] = updatedProduct;
 
       await this.writeProductJson(this.dataProductFilePath, products);
-
-      return {
-        type: 'Success',
-        message: 'Updated successfully',
-        updatedProduct,
-      };
+      return plainToInstance(ProductResponseDto, updatedProduct);
     } catch (err) {
       throw new HttpException(err.response, err.status);
     }
@@ -109,9 +108,6 @@ export class ProductsService {
 
   async remove(id: number) {
     try {
-      if (!id) {
-        throw new HttpException('Id required', HttpStatus.NOT_FOUND);
-      }
       const products = await this.readProductJson(this.dataProductFilePath);
       const productIndex = await products.findIndex(
         (product) => product.id === id,
@@ -126,7 +122,6 @@ export class ProductsService {
       return {
         type: 'Success',
         message: 'Remove successfully',
-        products,
       };
     } catch (err) {
       throw new HttpException(err.response, err.status);

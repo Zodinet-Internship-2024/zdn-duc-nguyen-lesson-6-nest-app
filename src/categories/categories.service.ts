@@ -9,7 +9,7 @@ export class CategoriesService {
   private readonly dataCategoryFilePath = path.join(
     __dirname,
     '..',
-    '../src/db/categories.json',
+    '../../src/db/categories.json',
   );
   private generateId = (categories: Category[]) => {
     const id = categories.length + 1;
@@ -60,14 +60,11 @@ export class CategoriesService {
 
   async findOne(id: number) {
     try {
-      if (!id) {
-        throw new HttpException('Id  be required', HttpStatus.NOT_FOUND);
-      }
       const categories = await this.readCategoryJson(this.dataCategoryFilePath);
       const category = await categories.find((category) => category.id === id);
       console.log(category);
       if (!category) {
-        throw new HttpException('Product not found', HttpStatus.NOT_FOUND);
+        throw new HttpException('Category not found', HttpStatus.NOT_FOUND);
       }
       return {
         type: 'Success',
@@ -81,9 +78,6 @@ export class CategoriesService {
 
   async update(id: number, updateCategoryDto: UpdateCategoryDto) {
     try {
-      if (!id) {
-        throw new HttpException('Id required', HttpStatus.NOT_FOUND);
-      }
       const categories = await this.readCategoryJson(this.dataCategoryFilePath);
       const categoryIndex = await categories.findIndex(
         (category) => category.id === id,
@@ -111,13 +105,10 @@ export class CategoriesService {
 
   async remove(id: number) {
     try {
-      if (!id) {
-        throw new HttpException('Id required', HttpStatus.NOT_FOUND);
-      }
-      const categories: Category[] = await this.readCategoryJson(
+      const categories: Category[] = this.readCategoryJson(
         this.dataCategoryFilePath,
       );
-      const categoryIndex = await categories.findIndex(
+      const categoryIndex = categories.findIndex(
         (category) => category.id === id,
       );
       if (categoryIndex === -1) {
@@ -130,7 +121,6 @@ export class CategoriesService {
       return {
         type: 'Success',
         message: 'Remove successfully',
-        categories,
       };
     } catch (err) {
       throw new HttpException(err.response, err.status);
