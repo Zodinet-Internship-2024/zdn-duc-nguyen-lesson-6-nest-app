@@ -1,0 +1,61 @@
+[
+  { "id": 1, "username": "a", "password": "123", "roleId": 1 },
+  { "id": 2, "username": "b", "password": "123", "roleId": 2 },
+  { "id": 3, "username": "d", "password": "123", "roleId": 3 },
+  { "id": 4, "username": "e", "password": "123", "roleId": 1 },
+  { "id": 5, "username": "f", "password": "123", "roleId": 2 },
+  {
+    "username": "g",
+    "password": "$2b$10$p4fiT34HE0tb.YHtwKAo8uDc2Ywuv72DdS6NCOBOLWVnlZOMKmCQm",
+    "roleId": 1,
+    "id": 6
+  },
+  {
+    "username": "gccc",
+    "password": "$2b$10$917vVZ9Zq4e9GO4ds3ECfOTnkE2/HsJumOL6s.ZamW4QvmAT1ZySy",
+    "roleId": 1,
+    "id": 7
+  },
+  {
+    "username": "gccca",
+    "password": "$2b$10$bv3kFwQIY/kHcVqJfTqJou3pIwYO016gjlTqO9yBNfuUgUaYfANcq",
+    "roleId": 1,
+    "id": 8
+  },
+  {
+    "username": "nguyen van b",
+    "password": "$2b$10$44C5GszzGbBCwxAZipH8F.NVnf5XuB9Weu/yuAvZuiskI.fEMsobu",
+    "roleId": 1,
+    "id": 9
+  },
+  {
+    "username": "nguyen van d",
+    "password": "$2b$10$18PMbBARGj28kOPgaJyXLuABWOtIZRBYOpsVc.zfPGW5Ksey.1nNK",
+    "roleId": 1,
+    "id": 10
+  },
+  {
+    "username": "Nguyen van q",
+    "password": "$2b$10$XJqJDQ3kMqONNxrfvtq73O95.FmPLYBG2CcthF/iHeEnRzH3jITuy",
+    "roleId": 1,
+    "id": 11
+  },
+  {
+    "username": "nguyen van j",
+    "password": "$2b$10$erwf3T3ZN9du8bsIfRoFneUG6D5SHJWRoc925eow3KgIRkp/hIsdu",
+    "roleId": 1,
+    "id": 12
+  },
+  {
+    "username": "admin",
+    "password": "$2b$10$jDSMTCjIp4X6E/M7TuoeieILAqpc4JmSVnIvdnyKKW7KmSgaK1DQG",
+    "roleId": 2,
+    "id": 13
+  },
+  {
+    "username": "manager",
+    "password": "$2b$10$N7pc0LVXXDYwzl28ajNff.XtyTU7aAFDU9vOnIKLSblIaA6ndEC7q",
+    "roleId": 3,
+    "id": 14
+  }
+]

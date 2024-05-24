@@ -1,0 +1,43 @@
+[
+  {
+    "id": 1,
+    "name": "can-read-product",
+    "valuePermission": ["read-product"]
+  },
+  {
+    "id": 2,
+    "name": "can-write-product",
+    "valuePermission": ["write-product"]
+  },
+  {
+    "id": 3,
+    "name": "can-update-product",
+    "valuePermission": ["update-product"]
+  },
+  {
+    "id": 4,
+    "name": "can-delete-product",
+    "valuePermission": ["delete-product"]
+  },
+
+  {
+    "id": 5,
+    "name": "can-read-category",
+    "valuePermission": ["read-category"]
+  },
+  {
+    "id": 6,
+    "name": "can-write-category",
+    "valuePermission": ["write-category"]
+  },
+  {
+    "id": 7,
+    "name": "can-update-category",
+    "valuePermission": ["update-category"]
+  },
+  {
+    "id": 8,
+    "name": "can-delete-category",
+    "valuePermission": ["delete-category"]
+  }
+]
